@@ -52,7 +52,7 @@ public class PostService {
         post.setUpdatedOn(Instant.now());
         return post;
     }
-//TODO rename + tags + manyToMany etc + roles(superadmin admin user/reader) + likes/rating + pagination +
+//TODO rename + tags + manyToMany etc + roles(superadmin admin user/reader) + likes/rating + pagination + replace mapfromdtoto
     public PostDto readSinglePost(Long id) {
         Post post = postRepository.findById(id).orElseThrow(() -> new PostNotFoundException("No such id found" + id));
         return mapFromPostToDto(post);
