@@ -4,6 +4,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotBlank;
 import java.time.Instant;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table
@@ -24,7 +26,15 @@ public class Post {
     private Instant updatedOn;
     @Column
     @NotBlank
-    private String username;
+    private String author;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    private Set<PostTags> tagsByPost;
+
+    @ManyToOne
+    private User user;
+
+
 
     public Long getId() {
         return id;
@@ -66,11 +76,29 @@ public class Post {
         this.updatedOn = updatedOn;
     }
 
-    public String getUsername() {
-        return username;
+    public String getAuthor() {
+        return author;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setAuthor(String username) {
+        this.author = username;
     }
+
+    public Set<PostTags> getTagsByPost() {
+        return tagsByPost;
+    }
+
+    public void setTagsByPost(Set<PostTags> tagsByPost) {
+        this.tagsByPost = tagsByPost;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+
 }

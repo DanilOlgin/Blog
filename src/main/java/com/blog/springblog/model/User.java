@@ -1,6 +1,8 @@
 package com.blog.springblog.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table
@@ -14,6 +16,13 @@ public class User {
     private String password;
     @Column
     private String email;
+
+    @ManyToMany(mappedBy = "users")
+    private List<Roles> roles;
+
+    @OneToMany
+    private List<Post> userPosts = new ArrayList<>();
+
 
     public Long getId() {
         return id;
@@ -45,5 +54,22 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<Roles> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Roles> roles) {
+        this.roles = roles;
+    }
+
+    public void addPost(Post post){
+        this.userPosts.add(post);
+        post.setUser(this);
+    }
+    public void removePost(Post post){
+        this.userPosts.remove(post);
+        post.setUser(null);
     }
 }

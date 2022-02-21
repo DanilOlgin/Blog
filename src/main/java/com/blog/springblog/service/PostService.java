@@ -36,7 +36,7 @@ public class PostService {
         PostDto postDto = new PostDto();
         postDto.setId(post.getId());
         postDto.setContent(post.getContent());
-        postDto.setUsername(post.getUsername());
+        postDto.setUsername(post.getAuthor());
         postDto.setTitle(post.getTitle());
         return postDto;
     }
@@ -47,7 +47,7 @@ public class PostService {
         post.setContent(postDto.getContent());
 
         User loggedInUser = (User) authService.getCurrentUser().orElseThrow(() -> new IllegalArgumentException("No such User found"));
-        post.setUsername(loggedInUser.getUsername());
+        post.setAuthor(loggedInUser.getUsername());
         post.setCreatedOn(Instant.now());
         post.setUpdatedOn(Instant.now());
         return post;
